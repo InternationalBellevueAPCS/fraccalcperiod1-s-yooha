@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class FracCalc {
 
     /**
@@ -6,6 +8,11 @@ public class FracCalc {
      */
     public static void main(String[] args) 
     {
+    	Scanner console = new Scanner(System.in);
+    	System.out.print("Type in an equation: ");
+    	String equation = console.nextLine();
+    	System.out.println(produceAnswer(equation));
+    	
         // TODO: Read the input from the user and call produceAnswer with an equation
         // Checkpoint 1: Create a Scanner, read one line of input, pass that input to produceAnswer, print the result.
         // Checkpoint 2: Accept user input multiple times.
@@ -29,8 +36,12 @@ public class FracCalc {
         //               Note: Answer does not need to be reduced, but it must be correct.
         // Final project: All answers must be reduced.
         //               Example "4/5 * 1_2/4" returns "1_1/5".
-        
-        return "";
+    	Scanner console = new Scanner(input);
+    	
+        String first = console.next();
+        String op = console.next();
+        String second = console.next();
+        return second;
     }
 
     // TODO: Fill in the space below with helper methods
