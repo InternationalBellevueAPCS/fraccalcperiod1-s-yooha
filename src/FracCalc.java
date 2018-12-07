@@ -9,14 +9,24 @@ public class FracCalc {
     public static void main(String[] args) 
     {
     	Scanner console = new Scanner(System.in);
-    	System.out.print("Type in an equation: ");
+    	System.out.print("Type in an equation (press x to stop): ");
     	String equation = console.nextLine();
-    	System.out.println(produceAnswer(equation));
+    	while (equation!="x") {
+    		System.out.println(produceAnswer(equation));
+    		System.out.print("Type in an equation (press x to stop): ");
+        	equation = console.nextLine();
+        	if (equation.equals("x")) {
+        		break;
+        	}
+    	}
+    		System.out.print("Thank you for using FracCalc!");
+    		
+    	}
     	
         // TODO: Read the input from the user and call produceAnswer with an equation
         // Checkpoint 1: Create a Scanner, read one line of input, pass that input to produceAnswer, print the result.
         // Checkpoint 2: Accept user input multiple times.
-    }
+    
     
     /**
      * produceAnswer - This function takes a String 'input' and produces the result.
@@ -41,11 +51,51 @@ public class FracCalc {
         String first = console.next();
         String op = console.next();
         String second = console.next();
-        return second;
+        
+        String secondWhole = whole(second);
+        String secondNumer = numer(second);
+        String secondDenom = denomer(second);
+        
+        String answer = "whole:" + secondWhole + " numerator:" + secondNumer + " denominator:"+ secondDenom;
+                
+        return answer;
     }
 
     // TODO: Fill in the space below with helper methods
-    
+    public static String whole(String str) {
+    	if (str.contains("_")) {
+    		return str.substring(0, str.indexOf('_'));
+    	}else if (str.contains("/")) {
+    		return "0";
+    	}else{
+    		return str ;
+    	}
+    	
+    	}
+    	
+    	
+		
+    public static String numer(String str) {
+    	if (str.contains("_")) {
+    		return str.substring(str.indexOf('_')+1, str.indexOf('/'));
+    	}else if (str.contains("/")) {
+    		return str.substring(0, str.indexOf('/'));
+    	}else {
+    		return "0";
+    	}
+    }
+    	
+    public static String denomer(String str) {
+    	if (str.contains("/")) {
+    		return str.substring(str.indexOf("/")+1);
+    	}else{
+    		return "1";
+    	}
+    		
+    	}
+    	
+    	
+   
     /**
      * greatestCommonDivisor - Find the largest integer that evenly divides two integers.
      *      Use this helper method in the Final Checkpoint to reduce fractions.
