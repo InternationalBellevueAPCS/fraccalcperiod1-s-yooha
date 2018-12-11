@@ -52,49 +52,146 @@ public class FracCalc {
         String op = console.next();
         String second = console.next();
         
-        String secondWhole = whole(second);
-        String secondNumer = numer(second);
-        String secondDenom = denomer(second);
+        int firstWhole = whole(first);
+        int firstNum = numer(first);
+        int firstDenom = denomer(first);
         
-        String answer = "whole:" + secondWhole + " numerator:" + secondNumer + " denominator:"+ secondDenom;
-                
+        int secondWhole = whole(second);
+        int secondNum = numer(second);
+        int secondDenom = denomer(second);
+        
+        int resultWhole =0;
+        int resultNum = 0;
+        int resultDenom =0;
+        
+        int holder =0;
+        
+        int lcm =0;
+        int uno =0;
+        int dos =0;
+        
+        String whole = "";
+        String num = "";
+        String denom ="";
+        
+        String answer ="";
+        
+        if (op.equals("+")) {
+        	resultWhole = firstWhole + secondWhole;
+        	whole = Integer.toString(resultWhole)+ "_";
+        	
+        	
+        	if (firstDenom == secondDenom) {
+        		resultNum = firstNum + secondNum;
+        	}else {
+        		lcm = leastCommonMultiple(firstDenom, secondDenom);        		
+        		uno = lcm/firstDenom;
+        		dos = lcm/secondDenom;
+        		firstNum*=uno;
+        		secondNum*=dos;
+        		resultNum = firstNum + secondNum;
+        		
+        	}
+        	num = Integer.toString(firstNum+secondNum);
+    		denom = Integer.toString(leastCommonMultiple(firstDenom, secondDenom));
+        	answer = whole + num + "/" + denom;
+        }        
+        if (op.equals("-")) {
+        	/*resultWhole = firstWhole - secondWhole;
+        	whole = Integer.toString(resultWhole)+ "_";*/
+        	
+        	
+        	if (firstDenom == secondDenom) {
+        		firstNum = firstNum + (firstWhole*firstDenom);
+        		
+        		secondNum = secondNum + (secondWhole*secondDenom);
+        		
+        		resultNum = firstNum - secondNum;
+        	}else {
+        		firstNum = firstNum + (firstWhole*firstDenom);
+        		
+        		secondNum = secondNum + (secondWhole*secondDenom);
+        		
+        		lcm = leastCommonMultiple(firstDenom, secondDenom);        		
+        		uno = lcm/firstDenom;
+        		dos = lcm/secondDenom;
+        		firstNum*=uno;
+        		secondNum*=dos;
+        		resultNum = firstNum-secondNum;
+        		
+        	}
+        	num = Integer.toString(resultNum);
+    		denom = Integer.toString(leastCommonMultiple(firstDenom, secondDenom));
+        	answer = whole + num + "/" + denom;
+        }
+        if (op.equals("*")) {
+        	if (firstWhole>0) {
+        		firstNum = firstNum + (firstWhole*firstDenom);        	
+        	}
+        	if (secondWhole>0) {
+        		secondNum = secondNum + (secondWhole*secondDenom);        		
+        	}
+        	resultNum = firstNum*secondNum;
+        	resultDenom = firstDenom*secondDenom;
+        	num = Integer.toString(resultNum);
+        	denom = Integer.toString(resultDenom);
+        	answer = num+ "/" + denom;
+        }
+        if (op.equals("/")) {
+        	if (firstWhole>0) {
+        		firstNum = firstNum + (firstWhole*firstDenom);        	
+        	}
+        	if (secondWhole>0) {
+        		secondNum = secondNum + (secondWhole*secondDenom);        		
+        	}
+        	holder = secondNum;
+        	secondNum = secondDenom;
+        	secondDenom = holder;
+        	resultNum = firstNum*secondNum;
+        	resultDenom = firstDenom*secondDenom;
+        	num = Integer.toString(resultNum);
+        	denom = Integer.toString(resultDenom);
+        	answer = num+ "/" + denom;
+        }
+        
         return answer;
     }
+    
 
     // TODO: Fill in the space below with helper methods
-    public static String whole(String str) {
+    public static int whole(String str) {
     	if (str.contains("_")) {
-    		return str.substring(0, str.indexOf('_'));
+    		return Integer.parseInt(str.substring(0, str.indexOf('_')));
     	}else if (str.contains("/")) {
-    		return "0";
+    		return 0;
     	}else{
-    		return str ;
+    		return Integer.parseInt(str) ;
     	}
     	
     	}
     	
     	
 		
-    public static String numer(String str) {
+    public static int numer(String str) {
     	if (str.contains("_")) {
-    		return str.substring(str.indexOf('_')+1, str.indexOf('/'));
+    		return Integer.parseInt(str.substring(str.indexOf('_')+1, str.indexOf('/')));
     	}else if (str.contains("/")) {
-    		return str.substring(0, str.indexOf('/'));
+    		return Integer.parseInt(str.substring(0, str.indexOf('/')));
     	}else {
-    		return "0";
+    		return 0;
     	}
     }
     	
-    public static String denomer(String str) {
+    public static int denomer(String str) {
     	if (str.contains("/")) {
-    		return str.substring(str.indexOf("/")+1);
+    		return Integer.parseInt(str.substring(str.indexOf("/")+1));
     	}else{
-    		return "1";
+    		return 1;
     	}
     		
     	}
     	
-    	
+    
    
     /**
      * greatestCommonDivisor - Find the largest integer that evenly divides two integers.
